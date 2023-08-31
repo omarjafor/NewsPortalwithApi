@@ -1,5 +1,4 @@
 # news-portal-assignemnt
-### Private Repo Link: [https://singular-gnome-94a64d.netlify.app/](https://singular-gnome-94a64d.netlify.app/)
 
 
 ----------------
