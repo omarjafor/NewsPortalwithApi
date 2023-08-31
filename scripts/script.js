@@ -48,12 +48,12 @@ const displayCategoriesPosts = posts => {
         <h3 class="ml-8 font-semibold text-black">${posts.length ? posts.length : 'No'} News found for this category</h3>
     `;
 
-    // loddingSpinner(true)
+    loaddingSpinner(true);
     lowestVisit.innerHTML = ``;
     mostVisited.innerHTML = ``;
     displayContent.innerHTML = ``;
     posts.forEach(post => {
-        console.log(post);
+        // console.log(post);
         const { _id, total_view, title, author, thumbnail_url, details, rating } = post;
         const { name, published_date, img } = author;
 
@@ -91,9 +91,55 @@ const displayCategoriesPosts = posts => {
         `;
         mostVisited.appendChild(postDiv);
     });
-    // loddingSpinner(false);
+    loaddingSpinner(false);
 }
 
+const loadPostsModal = async news_id => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/${news_id}`);
+    const data = await res.json();
+    displayPostsModal(data.data);
+}
 
+const displayPostsModal = newses => {
+    const displayModal = document.getElementById('display-modal');
+    newses.forEach(news => {
+        const { _id, total_view, title, author, image_url, details, rating } = news;
+        const { badge, number } = rating;
+        const { name, img, published_date } = author;
+        displayModal.innerHTML = `
+        <div class="modal-box bg-white text-black">
+        <img src="${image_url}" alt="">
+        <h2 class="card-title">${title}</h2>
+        <p class="py-4">${details}</p>
+        <div class="card-actions justify-between items-center">
+            <div class="flex items-center">
+                <div id="profile-icon" class="w-10 rounded-full">
+                <img src="${img}" alt="">
+                </div>
+                <div class="ml-2">
+                <p>${name ? name : 'No author'}</p>
+   
+                </div>
+            </div>
+            <div class="flex items-center justify-evenly">
+                <img src="../images/carbon_view.png" alt="">
+                <p class="ml-2">${total_view ? total_view : "No view"}</p>
+            </div>
+        <div class="modal-action">
+          <label for="read-more-modal" class="btn btn-primary">Close</label>
+        </div>
+      </div>
+        `;
+    });
+}
+
+const loaddingSpinner = isLoading =>{
+    const loadingButton = document.getElementById('lodding-button');
+    if(isLoading){
+        loadingButton.classList.remove('hidden');
+    }else{
+        loadingButton.classList.add('hidden');
+    }
+}
 
 loadCategories();
