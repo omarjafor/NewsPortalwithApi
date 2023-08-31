@@ -1,8 +1,4 @@
 # news-portal-assignemnt
-
-
-----------------
-
 ## API Links
 
 ## All News Category
