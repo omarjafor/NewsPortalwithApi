@@ -28,9 +28,21 @@ const displayPostCategories = (categories) =>{
 }
 
 const loadCategoriesDetails = async (category_id) => {
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
-    const data = await res.json();
-    console.log(data.data);
+    try{
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
+        const data = await res.json();
+        const categoriesPost = data.data;
+        displayCategoriesPosts(categoriesPost);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+const displayCategoriesPosts = posts => {
+    const lowestVisit = document.getElementById('lowest-visit');
+    const mostVisited = document.getElementById('most-visited');
+    const displayContent = document.getElementById('display-content');
+    const displayPostItemLength = document.getElementById('display-post-length');
 }
 
 
